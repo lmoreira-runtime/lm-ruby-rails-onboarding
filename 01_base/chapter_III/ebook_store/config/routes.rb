@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
-  devise_for :users, sign_out_via: [:get, :delete]
+  # namespace :admin do
+  #   get 'users/index'
+  #   get 'users/show'
+  #   get 'users/new'
+  #   get 'users/create'
+  #   get 'users/edit'
+  #   get 'users/update'
+  #   get 'users/destroy'
+  # end
+  # 
+  namespace :admin do
+    resources :users
+  end
+  devise_for :users, sign_out_via: [:get, :delete], controllers: { registrations: 'users/registrations' }
   get 'home/index'
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
