@@ -1,4 +1,4 @@
-<!-- app/views/admin/users/_form.html.erb -->
+
 <%= form_with(model: [:admin, @user], local: true) do |form| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -37,6 +37,6 @@
   </div>
     <br>
   <div class="actions">
-    <%= form.submit class: 'btn btn-secondary' %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

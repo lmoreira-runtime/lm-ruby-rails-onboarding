@@ -16,24 +16,25 @@ class User < ApplicationRecord
     super && status?
   end
 
+  def admin?
+    category == 'admin'
+  end
+
   private
 
   def set_default_category
     self.category ||= 'buyer'
   end
-
+  
   def admin_limit
     if category_changed? && category == 'admin' && !User.admins.exists?
       # Allow the first admin to be created
       return
     end
 
-    if category_changed? && category == 'admin' && !User.find(created_by_id).admin?
+    if category_changed? && category == 'admin' && category_was != 'admin'
       errors.add(:category, "can only be set to admin by an existing admin user")
     end
-
-    # if category_was == 'admin' && category != 'admin' && User.admins.count == 1
-    #   errors.add(:category, "cannot be changed. This is the last admin user")
-    # end
   end
+  
 end

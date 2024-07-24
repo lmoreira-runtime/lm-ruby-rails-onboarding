@@ -8,6 +8,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
   end
 
   def new
@@ -16,7 +17,6 @@ class Admin::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.created_by_id = current_user.id
     if @user.save
       redirect_to admin_user_path(@user), notice: 'User was successfully created.'
     else
@@ -28,10 +28,20 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params.merge(created_by_id: current_user.id))
-      redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
+    if params[:user][:password].present?
+      if @user.update(user_params)
+        redirect_to admin_users_path(@user), notice: 'User was successfully updated.'
+      else
+        Rails.logger.debug "User update failed. Errors: #{@user.errors.full_messages}"
+        render :edit
+      end
     else
-      render :edit
+      if @user.update_without_password(user_params)
+        redirect_to admin_users_path(@user), notice: 'User was successfully updated.'
+      else
+        Rails.logger.debug "User update failed. Errors: #{@user.errors.full_messages}"
+        render :edit
+      end
     end
   end
 
