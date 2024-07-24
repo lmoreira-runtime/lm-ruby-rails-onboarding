@@ -38,7 +38,7 @@ class EbooksController < ApplicationController
   # PATCH/PUT /ebooks/1 or /ebooks/1.json
   def update
     respond_to do |format|
-      if @ebook.update(ebook_params)
+      if @ebook.update(ebook_params.except(:user_id))
         format.html { redirect_to ebook_url(@ebook), notice: "Ebook was successfully updated." }
         format.json { render :show, status: :ok, location: @ebook }
       else
