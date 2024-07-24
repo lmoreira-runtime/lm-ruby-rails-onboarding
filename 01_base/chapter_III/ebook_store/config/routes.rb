@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ebooks
   # namespace :admin do
   #   get 'users/index'
   #   get 'users/show'
