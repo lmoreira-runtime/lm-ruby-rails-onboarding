@@ -3,6 +3,8 @@ class Ebook < ApplicationRecord
   has_many :purchases
   has_one :ebook_statistic
 
+  has_one_attached :pdf
+
   enum status: { draft: 0, pending: 1, live: 2 }
   validates :status, presence: true, inclusion: { in: statuses.keys }
 

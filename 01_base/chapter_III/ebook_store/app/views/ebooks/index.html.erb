@@ -12,6 +12,7 @@
       <th>Price</th>
       <th>Status</th>
       <th>User</th>
+      <th>Preview</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -28,6 +29,15 @@
         </td>
         </td>
         <td><%= ebook.user.email %></td>
+        <td>
+          <% if ebook.pdf.attached? %>
+            <%= link_to 'Download', rails_blob_path(ebook.pdf, disposition: "attachment"), class: "badge bg-success" %>
+          <% else %>
+            <span class="badge bg-danger text-dark">
+              Not available
+            </span>
+          <% end %>
+        </td>
         <td>
           <%= link_to 'Show', ebook, class: 'btn btn-info' %>
           <%= link_to 'Edit', edit_ebook_path(ebook), class: 'btn btn-primary' %>

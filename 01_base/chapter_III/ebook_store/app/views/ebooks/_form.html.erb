@@ -31,6 +31,11 @@
     <%= form.select :status, Ebook.statuses.keys, { prompt: 'Select a status' }, { class: 'form-select form-select-md mb-3' } %> 
   </div>
 
+  <div class="field form-group mb-3">
+    <%= form.label :pdf %>
+    <%= form.file_field :pdf, class: 'form-control' %>
+  </div>
+
   <div class="field form-group mb-3" style="display: none;">
     <%= form.hidden_field :user_id, value: current_user.id, class: 'form-control' %>
   </div>
