@@ -9,6 +9,7 @@
           <%# <th>Purchases</th> %>
           <th>Draft Views</th>
           <th>Ebook Views</th>
+          <th>Ebook Purchases</th>
           <th>Unique IPs</th>
           <th>Browsers</th>
           <th>Locations</th>
@@ -21,6 +22,7 @@
             <%# <td><%= ebook.purchases.count %></td>
             <td><%= ebook.ebook_logs.where(action: :draft_viewed).count %></td>
             <td><%= ebook.ebook_logs.where(action: :ebook_seen).count %></td>
+            <td><%= ebook.ebook_logs.where(action: :ebook_purchased).count %></td>
             <td>
                 <% browser_counts = ebook.ebook_logs.group(:ip_address).count %>
                 <% browser_counts.each do |ip_address, count| %>

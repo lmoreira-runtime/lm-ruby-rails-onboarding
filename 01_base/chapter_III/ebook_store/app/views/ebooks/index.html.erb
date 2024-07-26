@@ -2,7 +2,9 @@
 
 <h1>Ebooks</h1>
 
-<%= link_to "New ebook", new_ebook_path, class: 'btn btn-success mb-3' %>
+<% if current_user.seller? || current_user.admin? %>
+  <%= link_to "New ebook", new_ebook_path, class: 'btn btn-success mb-3' %>
+<% end %>
 
 <table class="table table-secondary table-striped table-hover">
   <thead>
@@ -40,8 +42,13 @@
         </td>
         <td>
           <%= link_to 'Show', ebook, class: 'btn btn-info' %>
-          <%= link_to 'Edit', edit_ebook_path(ebook), class: 'btn btn-primary' %>
-          <%= link_to 'Delete', ebook, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% if (current_user.seller? && ebook.user == current_user) || current_user.admin? %>
+            <%= link_to 'Edit', edit_ebook_path(ebook), class: 'btn btn-primary' %>
+            <%= link_to 'Delete', ebook, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
+          <% if (current_user.buyer? || current_user.seller?) && ebook.live? && ebook.user.seller? && ebook.user != current_user %>
+            <%= button_to 'Buy', buy_ebook_ebook_path(ebook), method: :post, class: 'btn btn-warning' %>
+          <% end %>
         </td>
       </tr>
     <% end %>

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :ebooks do
     member do
+      post 'buy', as: :buy_ebook
       get 'logs'
       get :download_pdf
     end
