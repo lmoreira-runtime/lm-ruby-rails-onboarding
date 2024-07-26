@@ -4,6 +4,7 @@
 </br>
 <div>
   <%= link_to "Edit this ebook", edit_ebook_path(@ebook), class: 'btn btn-primary me-2' %> 
+  <%= link_to "See logs", logs_ebook_path(@ebook), class: 'btn btn-secondary' %> 
   <%= link_to "Back to ebooks", ebooks_path, class: 'btn btn-secondary' %>
 </br></br>
   <%= button_to "Destroy this ebook", @ebook, method: :delete, class: 'btn btn-danger' %>

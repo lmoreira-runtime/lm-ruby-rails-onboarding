@@ -31,7 +31,7 @@
         <td><%= ebook.user.email %></td>
         <td>
           <% if ebook.pdf.attached? %>
-            <%= link_to 'Download', rails_blob_path(ebook.pdf, disposition: "attachment"), class: "badge bg-success" %>
+            <%= link_to 'Download', download_pdf_ebook_path(ebook), class: "badge bg-success" %>
           <% else %>
             <span class="badge bg-danger text-dark">
               Not available
