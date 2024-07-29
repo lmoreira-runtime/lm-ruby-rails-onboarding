@@ -36,6 +36,11 @@
     <%= form.file_field :pdf, class: 'form-control' %>
   </div>
 
+  <div class="field form-group mb-3">
+    <%= form.label :cover %>
+    <%= form.file_field :cover, class: 'form-control' %>
+  </div>
+
   <% if current_user.admin? %>
     <div class="field form-group mb-3">
       <%= form.label :user_id, 'Owner', class: 'control-label' %>

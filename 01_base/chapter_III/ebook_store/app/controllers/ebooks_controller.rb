@@ -201,6 +201,6 @@ class EbooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ebook_params
-      params.require(:ebook).permit(:title, :description, :price, :status, :user_id, :pdf)
+      params.require(:ebook).permit(:title, :description, :price, :status, :user_id, :pdf, :cover)
     end
 end
