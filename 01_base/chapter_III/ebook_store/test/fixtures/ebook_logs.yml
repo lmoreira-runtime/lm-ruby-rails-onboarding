@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ebook: one
+  user: one
+  action: 1
+  ip_address: MyString
+  browser: MyString
+  location: MyString
+  seller: one
+  price: 9.99
+  fee: 9.99
+
+two:
+  ebook: two
+  user: two
+  action: 1
+  ip_address: MyString
+  browser: MyString
+  location: MyString
+  seller: two
+  price: 9.99
+  fee: 9.99

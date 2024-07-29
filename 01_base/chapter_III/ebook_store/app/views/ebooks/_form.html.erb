@@ -1,0 +1,55 @@
+<%= form_with(model: ebook, local: true, html: { class: 'form-horizontal' }) do |form| %>
+  <% if ebook.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(ebook.errors.count, "error") %> prohibited this ebook from being saved:</h2>
+
+      <ul>
+        <% ebook.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group mb-3">
+    <%= form.label :title, class: 'control-label' %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group mb-3">
+    <%= form.label :description, class: 'control-label' %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group mb-3">
+    <%= form.label :price, class: 'control-label' %>
+    <%= form.text_field :price, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group mb-3">
+    <%= form.label :status, class: 'control-label' %>
+    <%= form.select :status, Ebook.statuses.keys, { prompt: 'Select a status' }, { class: 'form-select form-select-md mb-3' } %> 
+  </div>
+
+  <div class="field form-group mb-3">
+    <%= form.label :pdf %>
+    <%= form.file_field :pdf, class: 'form-control' %>
+  </div>
+
+  <% if current_user.admin? %>
+    <div class="field form-group mb-3">
+      <%= form.label :user_id, 'Owner', class: 'control-label' %>
+      <%= form.collection_select :user_id, User.all, :id, :email, { prompt: 'Select a user' }, { class: 'form-select form-select-md mb-3' } %>
+    </div>
+  <% else %>
+    <div class="field form-group mb-3" style="display: none;">
+      <%= form.hidden_field :user_id, value: current_user.id, class: 'form-control' %>
+    </div>
+  <% end %>
+  </br>
+  
+  <div class="actions">
+    <%= form.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+

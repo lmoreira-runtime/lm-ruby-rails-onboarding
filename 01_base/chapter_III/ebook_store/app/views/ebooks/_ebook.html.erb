@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h1 class="card-title mb-0">Ebook Details</h1>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-sm-3"><strong>Title:</strong></div>
+        <div class="col-sm-9"><%= ebook.title %></div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-3"><strong>Description:</strong></div>
+        <div class="col-sm-9"><%= ebook.description %></div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-3"><strong>Price:</strong></div>
+        <div class="col-sm-9"><%= number_to_currency(ebook.price) %></div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-3"><strong>Status:</strong></div>
+        <div class="col-sm-9">
+          <span class="badge <%= ebook_status_badge(ebook) %>">
+            <%= ebook.status.capitalize %>
+          </span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-3"><strong>Preview:</strong></div>
+        <div class="col-sm-9">
+          <% if ebook.pdf.attached? %>
+            <%= link_to 'Download', download_pdf_ebook_path(ebook), class: "badge bg-success" %>
+          <% else %>
+            <span class="badge bg-danger text-dark">
+              Not available
+            </span>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-sm-3"><strong>User:</strong></div>
+        <div class="col-sm-9">
+          <%= ebook.user.email %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

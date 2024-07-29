@@ -1,0 +1,36 @@
+<!-- app/views/admin/users/index.html.erb -->
+<h1>Manage Users</h1>
+
+<%= link_to 'Create New User', new_admin_user_path, class: 'btn btn-success mb-3' %>
+
+<table class="table table-secondary table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Category</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td>
+        <span class="badge <%= user_category_badge(user) %>">
+            <%= user.category.capitalize %>
+          </span></td>
+        <td>
+        <span class="badge <%= user.status ? 'bg-success' : 'bg-danger' %>">
+            <%= user.status ? 'Enabled' : 'Disabled' %>
+          </span>
+        </td>
+        <td>
+          <%= link_to 'View', admin_user_path(user) , class: 'btn btn-info' %>
+          <%= link_to 'Edit', edit_admin_user_path(user), class: 'btn btn-primary' %>
+          <%# <%= link_to 'Delete', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary', disabled: true %> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Ebook Statistics</h1>
+
+  <div class="table-responsive">
+    <table class="table table-secondary table-striped table-hover">
+      <thead >
+        <tr>
+          <th>Title</th>
+          <%# <th>Purchases</th> %>
+          <th>Draft Views</th>
+          <th>Ebook Views</th>
+          <th>Ebook Purchases</th>
+          <th>Unique IPs</th>
+          <th>Browsers</th>
+          <th>Locations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @ebooks.each do |ebook| %>
+          <tr>
+            <td><%= ebook.title %></td>
+            <%# <td><%= ebook.purchases.count %></td>
+            <td><%= ebook.ebook_logs.where(action: :draft_viewed).count %></td>
+            <td><%= ebook.ebook_logs.where(action: :ebook_seen).count %></td>
+            <td><%= ebook.ebook_logs.where(action: :ebook_purchased).count %></td>
+            <td>
+                <% browser_counts = ebook.ebook_logs.group(:ip_address).count %>
+                <% browser_counts.each do |ip_address, count| %>
+                    <span class="d-block"><%= "#{ip_address}: #{count}" %></span>
+                <% end %>
+            <td>
+              <% browser_counts = ebook.ebook_logs.group(:browser).count %>
+              <% browser_counts.each do |browser, count| %>
+                <span class="d-block"><%= "#{browser}: #{count}" %></span>
+              <% end %>
+            </td>
+            <td>
+              <% location_counts = ebook.ebook_logs.group(:location).count %>
+              <% location_counts.each do |location, count| %>
+                <span class="d-block"><%= "#{location}: #{count}" %></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
