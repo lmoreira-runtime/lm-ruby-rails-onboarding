@@ -15,7 +15,8 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.email %></td>
+        <td>
+          <%= user.email %></td>
         <td>
         <span class="badge <%= user_category_badge(user) %>">
             <%= user.category.capitalize %>

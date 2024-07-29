@@ -5,6 +5,8 @@ class User < ApplicationRecord
   enum category: { buyer: 'buyer', seller: 'seller', admin: 'admin' }
   validates :category, presence: true, inclusion: { in: categories.keys }
 
+  has_one_attached :avatar
+  
   scope :enabled, -> { where(status: true) }
   scope :disabled, -> { where(status: false) }
   scope :admins, -> { where(category: 'admin') }

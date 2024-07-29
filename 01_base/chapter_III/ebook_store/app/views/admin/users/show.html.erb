@@ -6,6 +6,11 @@
       <h1 class="card-title mb-0">User Details</h1>
     </div>
     <div class="card-body">
+      <% if @user.avatar.attached? %>
+        <div class="text-left">
+          <%= image_tag @user.avatar.variant(resize_to_limit: [150, 150]).processed, class: "img-fluid rounded-circle ms-50 my-2" %>
+        </div>
+      <% end %>
       <div class="row mb-3">
         <div class="col-sm-3"><strong>Email:</strong></div>
         <div class="col-sm-9"><%= @user.email %></div>
