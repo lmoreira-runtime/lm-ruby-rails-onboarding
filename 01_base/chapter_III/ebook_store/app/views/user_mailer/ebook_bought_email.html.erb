@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <p>
+        Dear <%= @user.email %>,
+
+        We hope this email finds you well.
+
+        We are pleased to inform you that you have earned a fee from a recent sale of your eBook on [Platform Name]. Below are the details of the transaction:
+
+        Book Title: <%= @ebook.title %>
+        Sale Price: $<%= @ebook.price %>
+        Your Earnings (10%): $<%= @fee %>
+
+        We appreciate your contribution to our platform and are thrilled to see your eBook reaching readers. Your earnings have been credited to your account and will be available for withdrawal according to our payment schedule.
+
+        If you have any questions or need further assistance, please do not hesitate to contact our support team.
+
+        Thank you for being a valued member of our community.
+
+        Best regards,
+
+        Runtime Revolution Ebook Store
+    </p>
+  </body>
+</html>

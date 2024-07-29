@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Thank you for registering the EBook <%= @ebook.title %>!</h1>
+    <p>
+      Welcome, <%= @user.email %>! You can manage your ebooks at <%= link_to 'My Ebooks', @url %>.
+    </p>
+  </body>
+</html>

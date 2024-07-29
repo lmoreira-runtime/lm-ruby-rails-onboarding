@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <p>
+
+Dear  <%= @user.email %>!,
+
+We hope this email finds you well.
+
+We are excited to share the detailed statistics for your eBook "<%= @ebook.title %>". Below, you will find a comprehensive overview of its performance:
+
+<h1>Sales and Views Summary</h1>
+Number of Purchases: <%= @ebook.ebook_logs.where(action: :ebook_purchased).count %>
+Total Earnings (10% per sale): $<%= @ebook.ebook_logs.sum(:fee) %>
+
+<h1>Engagement Metrics</h1>
+Draft PDF Views: <%= @ebook.ebook_logs.where(action: :draft_viewed).count %> times
+eBook Views (Pre-purchase): <%= @ebook.ebook_logs.where(action: :ebook_seen).count %> times
+
+<h1>Audience Insights</h1>
+<table>
+  <thead>
+    <tr>
+      <th>IP Address</th>
+      <th>Browser</th>
+      <th>Location</th>
+      <th>Times Viewed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ebook.ebook_logs.group(:ip_address, :browser, :location).where(action: :ebook_seen).count.each do |key, count| %>
+      <tr>
+        <td><%= key[0] %></td> <!-- IP Address -->
+        <td><%= key[1] %></td> <!-- Browser -->
+        <td><%= key[2] %></td> <!-- Location -->
+        <td><%= count %></td> <!-- Times Viewed -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+We are thrilled to see your eBook gaining traction and reaching a wide audience. Your efforts in creating this content are truly appreciated.
+
+If you have any questions or need further insights, please do not hesitate to reach out to our support team.
+
+Thank you for being an integral part of our community.
+
+Best regards,
+
+    </p>
+  </body>
+</html>

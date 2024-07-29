@@ -1,4 +1,4 @@
-#require 'geocoder'
+require 'geocoder'
 
 class EbooksController < ApplicationController
   before_action :set_ebook, only: %i[show edit update destroy logs download_pdf buy]
@@ -32,6 +32,7 @@ class EbooksController < ApplicationController
 
     respond_to do |format|
       if @ebook.save
+        #UserMailer.with(ebook: @ebook, user: current_user).welcome_email.deliver_now
         format.html { redirect_to ebook_url(@ebook), notice: "Ebook was successfully created." }
         format.json { render :show, status: :created, location: @ebook }
       else
@@ -39,6 +40,7 @@ class EbooksController < ApplicationController
         format.json { render json: @ebook.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /ebooks/1 or /ebooks/1.json
@@ -93,9 +95,13 @@ class EbooksController < ApplicationController
       return
     end
 
-    @ebook.update(user_id: current_user.id)
-
+    selling_user = User.find(@ebook.user_id)
+    fee = calculate_fee(@ebook.price)
     log_purchase_action
+    @ebook.update(user_id: current_user.id)
+    UserMailer.with(ebook: @ebook, user: selling_user, fee: fee).ebook_bought_email.deliver_now
+    UserMailer.with(ebook: @ebook, user: current_user).ebook_statistics_email.deliver_now
+    redirect_to @ebook
   end
 
   private
@@ -110,10 +116,8 @@ class EbooksController < ApplicationController
     end
 
     def log_ebook_view
-      # location_data = Geocoder.search(request.remote_ip).first
-      # city = location_data&.city || 'Unknown'
-      
-      city = 'Unknown'
+      location_data = Geocoder.search(request.remote_ip).first
+      city = location_data&.city || 'Unknown'
 
       ebook_log = EbookLog.create(
         ebook: @ebook,
@@ -131,7 +135,8 @@ class EbooksController < ApplicationController
     end
 
     def log_download_action
-      city = 'Unknown'
+      location_data = Geocoder.search(request.remote_ip).first
+      city = location_data&.city || 'Unknown'
       last_log = EbookLog.where(
         ebook: @ebook,
         user: current_user,
@@ -140,7 +145,6 @@ class EbooksController < ApplicationController
     
       # Prevent logging if the last log was created within the last minute
       if last_log.nil? || last_log.created_at < 1.minute.ago
-        city = 'Unknown'
         EbookLog.create!(
           ebook: @ebook,
           user: current_user,
@@ -154,10 +158,8 @@ class EbooksController < ApplicationController
 
 
     def log_purchase_action
-      # location_data = Geocoder.search(request.remote_ip).first
-      # city = location_data&.city || 'Unknown'
-      
-      city = 'Unknown'
+      location_data = Geocoder.search(request.remote_ip).first
+      city = location_data&.city || 'Unknown'
 
       ebook_log = EbookLog.create(
         ebook: @ebook,
