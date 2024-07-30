@@ -1,9 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <h1>Thank you for registering the EBook <%= @ebook.title %>!</h1>
-    <p>
-      Welcome, <%= @user.email %>! You can manage your ebooks at <%= link_to 'My Ebooks', @url %>.
-    </p>
-  </body>
+<head>
+    <title>Welcome to Runtime's Ebook Store!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header, .footer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .footer {
+            font-size: 12px;
+            color: #777;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to Runtime's Ebook Store!</h1>
+        </div>
+        <p>Dear <%= @user.email %>,</p>
+        <p>Welcome to Runtime's Ebook Store! We are delighted to have you join our community. Your journey towards Ebooks business starts here, and we're here to support you every step of the way.</p>
+        
+        <h2>Getting Started</h2>
+        <p>To help you get the most out of MyPlatform, here are a few steps to get you started:</p>
+        <ul>
+            <li><strong>Complete Your Profile:</strong> Personalize your experience by updating your profile.</li>
+            <li><strong>Explore Our Features:</strong> Discover all the tools and resources available to you. </li>
+            <li><strong>Join the Community:</strong> Connect with other members, share insights, and collaborate.</li>
+        </ul>
+        
+        <h2>Resources and Support</h2>
+        <ul>
+            <li><strong>Help Center:</strong> Find answers to common questions and detailed guides in our <a href="#">Help Center</a>.</li>
+            <li><strong>Customer Support:</strong> Our support team is here to assist you. Contact us anytime at <a href="mailto:support@myplatform.com">support@myplatform.com</a> or <a href="tel:+1234567890">+123-456-7890</a>.</li>
+            <li><strong>Tutorials and Webinars:</strong> Access our library of tutorials and sign up for upcoming webinars to maximize your productivity. Check them out <a href="#">here</a>.</li>
+        </ul>
+        
+        <h2>Stay Updated</h2>
+        <p>Follow us on <a href="#">social media</a> to stay informed about the latest updates, tips, and success stories from our community.</p>
+        
+        <p>Once again, welcome aboard! We're excited to see you thrive with MyPlatform.</p>
+        
+        <p>Best regards,<br>
+        The Runtime Team</p>
+        
+        <div class="footer">
+            <p>[Company Name]<br>
+            [Company Address]<br>
+            [Contact Information]</p>
+            <p>If you have any questions, don't hesitate to reach out to us.</p>
+        </div>
+    </div>
+</body>
 </html>

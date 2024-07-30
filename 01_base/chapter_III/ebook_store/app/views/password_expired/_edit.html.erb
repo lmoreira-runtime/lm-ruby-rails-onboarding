@@ -1,0 +1,29 @@
+<%= form_for(current_user, url: password_expired_update_path, method: :get) do |f| %>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h3>Password Expired! Please change it.</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <%= f.label :password, class: "form-label" %>
+              <%= f.password_field :password, class: "form-control" %>
+            </div>
+            <div class="form-group mt-3">
+              <%= f.label :password_confirmation, class: "form-label" %>
+              <%= f.password_field :password_confirmation, class: "form-control" %>
+            </div>
+            <div class="form-group mt-4">
+              <%= f.submit "Update Password", class: "btn btn-primary" %>
+            </div>
+            <div class="mt-3">
+              <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

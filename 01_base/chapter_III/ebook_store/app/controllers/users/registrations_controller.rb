@@ -2,7 +2,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_permitted_parameters, if: :devise_controller?
-
+  
   protected
 
   def configure_permitted_parameters
@@ -27,6 +27,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       super
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:current_password, :password, :password_confirmation)
   end
   
 end

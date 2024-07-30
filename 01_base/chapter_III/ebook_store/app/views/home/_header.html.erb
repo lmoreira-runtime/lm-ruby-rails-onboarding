@@ -16,9 +16,6 @@
           <%= link_to 'Ebooks Statistics', statistics_index_path, class:"nav-link"%>
         </li>
         <% end %>
-        <%# <li class="nav-item">
-          <a class="nav-link" href="#">Purchases</a>
-        </li> %>
         <% if user_signed_in? && current_user.admin? %>
           <li class="nav-item">
             <%= link_to 'Users', admin_users_path, class:"nav-link"%>
