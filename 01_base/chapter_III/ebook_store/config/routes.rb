@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+  get 'sessions/create'
+  get 'sessions/destroy'
+
   get 'password_expired/edit'
   get 'password_expired/update'
+
+  resources :users, only: [:new, :create, :show, :edit, :update]
+
   resources :ebooks do
     member do
       post 'buy', as: :buy_ebook
@@ -11,7 +18,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
   end
-  devise_for :users, sign_out_via: [:get, :delete], controllers: { registrations: 'users/registrations'}
+  
   resource :password, only: [:edit, :update]
   get 'home/index'
   root 'home#index'
@@ -22,6 +29,11 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   get 'statistics/index', to: 'statistics#index'
   get 'password_expired/edit', to: 'password_expired#edit'
-  get 'devise/passwords/edit', to: 'devise/passwords#edit'
   get 'test_mailer', to: 'test_mailer#index'
+
+  get 'signup', to: 'users#new'
+  post 'signup', to: 'users#create'
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
 end

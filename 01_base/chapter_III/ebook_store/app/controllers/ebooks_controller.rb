@@ -3,7 +3,7 @@ require 'geocoder'
 class EbooksController < ApplicationController
   before_action :set_ebook, only: %i[show edit update destroy logs download_pdf buy]
   before_action :log_ebook_view, only: [:show]
-  before_action :authenticate_user!
+  #before_action :authenticate_user!
   before_action :authorize_seller_or_admin, only: %i[edit update destroy]
   before_action :authorize_buyer_or_seller, only: %i[buy]
 

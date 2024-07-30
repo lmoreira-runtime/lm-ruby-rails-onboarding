@@ -1,6 +1,5 @@
-class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+class User < ApplicationRecord 
+  has_secure_password
 
   enum category: { buyer: 'buyer', seller: 'seller', admin: 'admin' }
   validates :category, presence: true, inclusion: { in: categories.keys }
@@ -28,7 +27,20 @@ class User < ApplicationRecord
     last_password_change_at.present? && last_password_change_at < 6.months.ago
   end
 
+  def update_without_password(params, *options)
+    params.delete(:password)
+    params.delete(:password_confirmation)
+
+    result = update(params, *options)
+    clean_up_passwords
+    result
+  end
+
   private
+
+  def clean_up_passwords
+    self.password = self.password_confirmation = nil
+  end
 
   def set_last_password_change_at
     Rails.logger.info "###### set_last_password_change_at"
