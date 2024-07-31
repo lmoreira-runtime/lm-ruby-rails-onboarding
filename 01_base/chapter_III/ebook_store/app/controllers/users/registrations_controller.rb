@@ -1,12 +1,5 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-
-  protected
-
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:category])
-  end
 
   def sign_up_params
     params = super
@@ -21,6 +14,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       super
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:current_password, :password, :password_confirmation)
   end
   
 end

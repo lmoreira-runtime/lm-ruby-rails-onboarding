@@ -4,6 +4,12 @@
       <h1 class="card-title mb-0">Ebook Details</h1>
     </div>
     <div class="card-body">
+      <% if ebook.cover.attached? %>
+      <div class="row mb-3">
+        <div class="col-sm-3"><strong>Cover:</strong></div>
+        <div class="col-sm-9"><%= image_tag ebook.cover.variant(resize_to_limit: [120, 120]).processed, class: "img-fluid m-2" %></div>
+      </div>
+      <% end %>
       <div class="row mb-3">
         <div class="col-sm-3"><strong>Title:</strong></div>
         <div class="col-sm-9"><%= ebook.title %></div>

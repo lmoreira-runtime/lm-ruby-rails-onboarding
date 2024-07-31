@@ -1,11 +1,9 @@
 class UserMailer < ApplicationMailer
   default from: 'no-reply@example.com'
 
-  def welcome_email
-    @user = params[:user]
-    @ebook = params[:ebook]
-    @url  = 'http://localhost:3000/'
-    mail(to: @user.email, subject: 'Welcome to Our Awesome Site')
+  def welcome_email(user)
+    @user = user
+    mail(to: @user.email, subject: "Welcome to Runtime's Ebook Store")
   end
 
   def ebook_bought_email
