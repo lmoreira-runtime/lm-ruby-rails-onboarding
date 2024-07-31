@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_30_130939) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_31_111508) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -67,6 +67,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_130939) do
     t.index ["user_id"], name: "index_ebooks_on_user_id"
   end
 
+  create_table "taggings", force: :cascade do |t|
+    t.integer "tag_id", null: false
+    t.integer "ebook_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ebook_id"], name: "index_taggings_on_ebook_id"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "tag_type"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -89,4 +105,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_130939) do
   add_foreign_key "ebook_logs", "users"
   add_foreign_key "ebook_logs", "users", column: "seller_id"
   add_foreign_key "ebooks", "users"
+  add_foreign_key "taggings", "ebooks"
+  add_foreign_key "taggings", "tags"
 end

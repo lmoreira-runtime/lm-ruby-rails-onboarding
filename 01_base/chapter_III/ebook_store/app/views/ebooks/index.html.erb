@@ -2,9 +2,12 @@
 
 <h1>Ebooks</h1>
 
+<%= render 'filters' %>
+</br>
 <% if current_user.seller? || current_user.admin? %>
   <%= link_to "New ebook", new_ebook_path, class: 'btn btn-success mb-3' %>
 <% end %>
+
 
 <table class="table table-secondary table-striped table-hover">
   <thead>

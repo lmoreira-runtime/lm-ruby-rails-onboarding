@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :category, presence: true, inclusion: { in: categories.keys }
 
   has_one_attached :avatar
+  has_many :ebooks
 
   scope :enabled, -> { where(status: true) }
   scope :disabled, -> { where(status: false) }

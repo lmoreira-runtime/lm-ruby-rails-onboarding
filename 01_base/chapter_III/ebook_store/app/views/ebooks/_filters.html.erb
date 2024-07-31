@@ -1,0 +1,7 @@
+<%= form_with url: ebooks_path, method: :get, class: "form-inline" do %>
+  <%= label_tag :tags, "Filter by Tags:" %>
+  <%= select_tag :tags, options_from_collection_for_select(Tag.all, :id, :name, params[:tags]), multiple: true, class: "form-control mx-sm-2 select2" %>
+
+  <%= submit_tag "Filter", class: "btn btn-primary" %>
+  <%= link_to 'Clear Filters', ebooks_path, class:"btn btn-secondary"%>
+<% end %>

@@ -1,7 +1,8 @@
 class Ebook < ApplicationRecord
   belongs_to :user
   has_many :ebook_logs, dependent: :destroy
-  has_one :ebook_statistic
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
 
   has_one_attached :pdf
   has_one_attached :cover
