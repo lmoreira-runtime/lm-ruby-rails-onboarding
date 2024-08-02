@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Base controller for the application.
 class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?
 
@@ -10,13 +13,12 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    unless user_signed_in?
-      flash[:alert] = "You must be logged in to perform that action"
-      redirect_to login_path
-    end
+    return if user_signed_in?
+
+    flash[:alert] = 'You must be logged in to perform that action'
+    redirect_to login_path
   end
 
-  
   # before_action :configure_permitted_parameters, if: :devise_controller?
 
   # def configure_permitted_parameters

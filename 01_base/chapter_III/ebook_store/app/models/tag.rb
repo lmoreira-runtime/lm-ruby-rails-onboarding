@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Model to represent a Tag.
 class Tag < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :ebooks, through: :taggings

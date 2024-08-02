@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Model to represent an Ebook.
 class Ebook < ApplicationRecord
   belongs_to :user
   has_many :ebook_logs, dependent: :destroy
@@ -21,5 +24,4 @@ class Ebook < ApplicationRecord
   def set_default_status
     self.status ||= :draft
   end
-
 end

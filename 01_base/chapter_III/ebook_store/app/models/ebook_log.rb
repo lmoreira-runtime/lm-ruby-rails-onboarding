@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
+# Model to represent a log entry for an Ebook.
 class EbookLog < ApplicationRecord
   belongs_to :ebook
   belongs_to :user
   belongs_to :seller, class_name: 'User', optional: true
- 
+
   enum action: { draft_viewed: 0, ebook_seen: 1, ebook_purchased: 2 }
 
   validates :action, presence: true, inclusion: { in: actions.keys }

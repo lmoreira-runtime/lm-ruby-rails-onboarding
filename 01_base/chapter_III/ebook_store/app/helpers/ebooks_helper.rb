@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Helper methods for ebook actions.
 module EbooksHelper
   def ebook_status_badge(ebook)
     case ebook.status

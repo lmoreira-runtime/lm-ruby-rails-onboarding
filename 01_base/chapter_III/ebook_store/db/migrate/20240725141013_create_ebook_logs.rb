@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create the ebook_logs table.
 class CreateEbookLogs < ActiveRecord::Migration[7.1]
   def change
     create_table :ebook_logs do |t|

@@ -1,4 +1,7 @@
-class User < ApplicationRecord 
+# frozen_string_literal: true
+
+# Model to represent a User.
+class User < ApplicationRecord
   has_secure_password
 
   enum category: { buyer: 'buyer', seller: 'seller', admin: 'admin' }
@@ -19,7 +22,7 @@ class User < ApplicationRecord
   def active_for_authentication?
     super && status?
   end
-  
+
   def admin?
     category == 'admin'
   end
@@ -44,25 +47,25 @@ class User < ApplicationRecord
   end
 
   def set_last_password_change_at
-    Rails.logger.info "###### set_last_password_change_at"
+    Rails.logger.info '###### set_last_password_change_at'
     self.last_password_change_at = Time.current
   end
 
   def set_default_category
     self.category ||= 'buyer'
   end
-  
+
   def admin_limit
     if category_changed? && category == 'admin' && !User.admins.exists?
       # Allow the first admin to be created
       return
     end
 
-    if category_changed? && category == 'admin' && category_was != 'admin'
-      errors.add(:category, "can only be set to admin by an existing admin user")
-    end
+    return unless category_changed? && category == 'admin' && category_was != 'admin'
+
+    errors.add(:category, 'can only be set to admin by an existing admin user')
   end
-  
+
   def send_welcome_email
     UserMailer.welcome_email(self).deliver_now
   end

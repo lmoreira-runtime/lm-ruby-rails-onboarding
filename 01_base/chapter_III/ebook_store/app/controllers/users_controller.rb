@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# Controller to manage user-related actions.
 class UsersController < ApplicationController
   before_action :require_user, only: [:show]
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: %i[show edit update]
 
   def new
     @user = User.new
@@ -20,8 +23,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)

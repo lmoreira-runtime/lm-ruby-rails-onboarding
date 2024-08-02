@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
+# Migration to create the ebooks table.
 class CreateEbooks < ActiveRecord::Migration[7.1]
+  # Migration to create the ebooks table.
   def change
     create_table :ebooks do |t|
       t.string :title

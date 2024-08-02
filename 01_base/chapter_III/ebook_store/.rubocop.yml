@@ -1,0 +1,32 @@
+AllCops:
+  NewCops: enable
+
+Metrics/ClassLength:
+  Max: 300  # Set your preferred maximum class length
+  Enabled: true
+
+Metrics/MethodLength:
+  Max: 40  # Set your preferred maximum method length
+  Enabled: true
+
+Layout/LineLength:
+  Max: 200  # Set your preferred maximum line length
+  Enabled: true
+
+Metrics/BlockLength:
+  Max: 90  # Set your preferred maximum block length
+  Enabled: true
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Max: 10
+  Enabled: true
+
+Style/HashLikeCase:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+  Enabled: true

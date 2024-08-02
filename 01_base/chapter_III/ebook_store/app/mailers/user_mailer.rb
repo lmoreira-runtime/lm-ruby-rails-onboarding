@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Mailer to handle user-related emails.
 class UserMailer < ApplicationMailer
   default from: 'no-reply@example.com'
 
