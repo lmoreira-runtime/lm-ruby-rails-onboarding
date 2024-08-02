@@ -28,7 +28,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
-          files: 01_base/chapter_III/ebook_store/coverage/.resultset.json
+          files: coverage/.resultset.json
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: true
