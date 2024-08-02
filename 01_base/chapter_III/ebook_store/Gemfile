@@ -40,7 +40,7 @@ gem 'rspec'
 gem 'rubocop'
 gem 'ruby-vips'
 gem 'select2-rails'
-gem 'simplecov', require: false, group: :test
+gem 'simplecov', require: true, group: :test
 
 gem 'tzinfo-data', platforms: %i[mswin mswin64 mingw x64_mingw jruby]
 gem 'bootsnap', require: false
