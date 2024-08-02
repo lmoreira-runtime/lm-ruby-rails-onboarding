@@ -16,7 +16,6 @@ jobs:
         run: |
           cd 01_base/chapter_III/ebook_store
           gem install bundler
-          bundle config set path 'vendor/bundle'
           bundle install
       - name: Run tests
         run: |
