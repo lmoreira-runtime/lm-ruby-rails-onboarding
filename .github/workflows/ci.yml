@@ -17,6 +17,10 @@ jobs:
           cd 01_base/chapter_III/ebook_store
           gem install bundler
           bundle install
+      - name: Run Rubocop
+        run: |
+          cd 01_base/chapter_III/ebook_store
+          bundle exec rubocop
       - name: Run tests
         run: |
           cd 01_base/chapter_III/ebook_store
