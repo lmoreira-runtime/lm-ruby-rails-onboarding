@@ -25,4 +25,11 @@ jobs:
         run: |
           cd 01_base/chapter_III/ebook_store
           bundle exec rspec
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage/**/*
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
 
