@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get 'sessions/new'
   get 'sessions/create'
@@ -6,7 +8,7 @@ Rails.application.routes.draw do
   get 'password_expired/edit'
   get 'password_expired/update'
 
-  resources :users, only: [:new, :create, :show, :edit, :update]
+  resources :users, only: %i[new create show edit update]
 
   resources :ebooks do
     member do
@@ -18,15 +20,15 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
   end
-  
-  resource :password, only: [:edit, :update]
+
+  resource :password, only: %i[edit update]
   get 'home/index'
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
   get 'statistics/index', to: 'statistics#index'
   get 'password_expired/edit', to: 'password_expired#edit'
   get 'test_mailer', to: 'test_mailer#index'
@@ -36,5 +38,4 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
-
 end

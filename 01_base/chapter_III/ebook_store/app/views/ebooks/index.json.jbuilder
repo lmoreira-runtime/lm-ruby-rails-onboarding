@@ -1,1 +1,3 @@
-json.array! @ebooks, partial: "ebooks/ebook", as: :ebook
+# frozen_string_literal: true
+
+json.array! @ebooks, partial: 'ebooks/ebook', as: :ebook

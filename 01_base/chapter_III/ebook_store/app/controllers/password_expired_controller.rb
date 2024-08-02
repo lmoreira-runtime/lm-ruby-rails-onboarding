@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
+# Controller to handle password expired actions.
 class PasswordExpiredController < ApplicationController
   before_action :authenticate_user!
-  
-  def edit
-  end
+
+  def edit; end
 
   def update
     if current_user.update(password_params)

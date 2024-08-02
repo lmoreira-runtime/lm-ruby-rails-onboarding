@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create the taggings table.
 class CreateTaggings < ActiveRecord::Migration[7.1]
   def change
     create_table :taggings do |t|
