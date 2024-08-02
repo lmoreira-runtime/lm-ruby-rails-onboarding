@@ -37,6 +37,7 @@ gem 'select2-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rspec'
+gem 'rubocop'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
