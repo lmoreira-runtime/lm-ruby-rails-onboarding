@@ -19,14 +19,23 @@ class ApplicationController < ActionController::Base
     redirect_to login_path
   end
 
-  # before_action :configure_permitted_parameters, if: :devise_controller?
-
-  # def configure_permitted_parameters
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:category])
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:category])
-  # end
-
   def authorize_admin
     redirect_to root_path, alert: 'You are not authorized to access this page.' unless current_user&.admin?
+  end
+
+  protected
+
+  def authorize_seller_or_admin
+    if current_user.seller?
+      redirect_to ebooks_path, alert: 'You are not authorized to perform this action.' unless @ebook.user == current_user
+    elsif !current_user.admin?
+      redirect_to ebooks_path, alert: 'You are not authorized to perform this action.'
+    end
+  end
+
+  def authorize_buyer_or_seller
+    return if current_user.buyer? || current_user.seller?
+
+    redirect_to ebooks_path, alert: 'You are not authorized to perform this action.'
   end
 end

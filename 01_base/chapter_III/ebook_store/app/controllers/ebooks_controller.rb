@@ -215,20 +215,6 @@ class EbooksController < ApplicationController
     end
   end
 
-  def authorize_seller_or_admin
-    if current_user.seller?
-      redirect_to ebooks_path, alert: 'You are not authorized to perform this action.' unless @ebook.user == current_user
-    elsif !current_user.admin?
-      redirect_to ebooks_path, alert: 'You are not authorized to perform this action.'
-    end
-  end
-
-  def authorize_buyer_or_seller
-    return if current_user.buyer? || current_user.seller?
-
-    redirect_to ebooks_path, alert: 'You are not authorized to perform this action.'
-  end
-
   def calculate_fee(price)
     0.1 * price
   end
