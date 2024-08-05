@@ -116,7 +116,6 @@ class EbooksController < ApplicationController
     redirect_to @ebook
   end
 
-
   def update_user_tag
     # Remove the current user's tags
     user_tags = @ebook.tags.where(tag_type: 'user')
@@ -138,7 +137,7 @@ class EbooksController < ApplicationController
 
     # Fetch all tags at once
     tags = Tag.where(id: params[:ebook][:tag_ids].reject(&:blank?))
-  
+
     # Associate all fetched tags with the ebook
     @ebook.tags << tags
   end
