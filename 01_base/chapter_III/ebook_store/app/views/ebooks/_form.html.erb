@@ -11,35 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field form-group mb-3">
-    <%= form.label :title, class: 'control-label' %>
-    <%= form.text_field :title, class: 'form-control' %>
-  </div>
-
-  <div class="field form-group mb-3">
-    <%= form.label :description, class: 'control-label' %>
-    <%= form.text_area :description, class: 'form-control' %>
-  </div>
-
-  <div class="field form-group mb-3">
-    <%= form.label :price, class: 'control-label' %>
-    <%= form.text_field :price, class: 'form-control' %>
-  </div>
-
-  <div class="field form-group mb-3">
-    <%= form.label :status, class: 'control-label' %>
-    <%= form.select :status, Ebook.statuses.keys, { prompt: 'Select a status' }, { class: 'form-select form-select-md mb-3' } %> 
-  </div>
-
-  <div class="field form-group mb-3">
-    <%= form.label :pdf %>
-    <%= form.file_field :pdf, class: 'form-control' %>
-  </div>
-
-  <div class="field form-group mb-3">
-    <%= form.label :cover %>
-    <%= form.file_field :cover, class: 'form-control' %>
-  </div>
+  <%= text_with_label(form, :title) %>
+  <%= text_with_label(form, :description, field_type: :text_area) %>
+  <%= text_with_label(form, :price) %>
+  <%= text_with_label(form, :status, field_type: :select, collection: Ebook.statuses.keys, prompt: 'Select a status', class: 'form-select form-select-md mb-3') %>
+  <%= text_with_label(form, :pdf, field_type: :file_field) %>
+  <%= text_with_label(form, :cover, field_type: :file_field) %>
 
   <% if current_user.admin? %>
     <div class="field form-group mb-3">
@@ -57,9 +34,8 @@
     <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
   </div>
   </br>
-  
+
   <div class="actions">
     <%= form.submit nil, class: 'btn btn-primary' %>
   </div>
 <% end %>
-
