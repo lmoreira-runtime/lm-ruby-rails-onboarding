@@ -110,22 +110,37 @@ class EbooksController < ApplicationController
     fee = calculate_fee(@ebook.price)
     log_purchase_action
     @ebook.update(user_id: current_user.id)
+    update_user_tag
     UserMailer.with(ebook: @ebook, user: selling_user, fee:).ebook_bought_email.deliver_now
     UserMailer.with(ebook: @ebook, user: current_user).ebook_statistics_email.deliver_now
     redirect_to @ebook
   end
 
+
+  def update_user_tag
+    # Remove the current user's tags
+    user_tags = @ebook.tags.where(tag_type: 'user')
+    user_tags.each do |tag|
+      @ebook.tags.destroy(tag)
+    end
+
+    # Add a new tag for the current user
+    user_tag = Tag.find_or_create_by(name: current_user.email, tag_type: 'user')
+    @ebook.tags << user_tag unless @ebook.tags.include?(user_tag)
+  end
+
   private
 
   def manage_tags
+    puts params[:ebook][:tag_ids].reject(&:blank?)
     # Clear existing tags
     @ebook.tags.destroy_all
 
-    # Add new tags
-    tags = params[:ebook][:tag_ids].reject(&:blank?)
-    tags.each do |tag_id|
-      @ebook.tags << Tag.find(tag_id)
-    end
+    # Fetch all tags at once
+    tags = Tag.where(id: params[:ebook][:tag_ids].reject(&:blank?))
+  
+    # Associate all fetched tags with the ebook
+    @ebook.tags << tags
   end
 
   # Use callbacks to share common setup or constraints between actions.
