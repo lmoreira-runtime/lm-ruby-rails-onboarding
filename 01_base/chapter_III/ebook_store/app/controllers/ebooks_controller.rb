@@ -14,32 +14,7 @@ class EbooksController < ApplicationController
   def index
     if params[:tags].present?
       tag_ids = params[:tags].reject(&:blank?)
-      text_tags = Tag.where(id: tag_ids, tag_type: 'text')
-      Rails.logger.info "### text_tags.count: #{text_tags.count}"
-      user_tags = Tag.where(id: tag_ids, tag_type: 'user')
-      Rails.logger.info "### user_tags.count: #{user_tags.count}"
-
-      if text_tags.exists? && user_tags.exists?
-        text_tag_ids = text_tags.pluck(:id)
-        user_tag_ids = user_tags.pluck(:id)
-
-        @ebooks = Ebook.joins(:taggings).where(
-          'ebooks.id IN (
-            SELECT ebook_id FROM taggings WHERE tag_id IN (:text_tag_ids)
-          ) AND ebooks.id IN (
-            SELECT ebook_id FROM taggings WHERE tag_id IN (:user_tag_ids)
-          )',
-          text_tag_ids:,
-          user_tag_ids:
-        ).distinct
-      elsif text_tags.exists?
-        @ebooks = Ebook.joins(:tags).where(tags: { id: text_tags.pluck(:id) }).distinct
-      elsif user_tags.exists?
-        @ebooks = Ebook.joins(:tags).where(tags: { id: user_tags.pluck(:id) }).distinct
-      else
-        @ebooks = Ebook.none
-      end
-
+      @ebooks = Ebook.filter_by_tags(tag_ids)
     else
       @ebooks = Ebook.all
     end

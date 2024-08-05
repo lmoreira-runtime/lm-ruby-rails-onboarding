@@ -19,6 +19,32 @@ class Ebook < ApplicationRecord
 
   before_validation :set_default_status, on: :create
 
+  def self.filter_by_tags(tag_ids)
+    text_tags = Tag.where(id: tag_ids, tag_type: 'text')
+    user_tags = Tag.where(id: tag_ids, tag_type: 'user')
+
+    if text_tags.exists? && user_tags.exists?
+      text_tag_ids = text_tags.pluck(:id)
+      user_tag_ids = user_tags.pluck(:id)
+
+      Ebook.joins(:taggings).where(
+        'ebooks.id IN (
+          SELECT ebook_id FROM taggings WHERE tag_id IN (:text_tag_ids)
+        ) AND ebooks.id IN (
+          SELECT ebook_id FROM taggings WHERE tag_id IN (:user_tag_ids)
+        )',
+        text_tag_ids:,
+        user_tag_ids:
+      ).distinct
+    elsif text_tags.exists?
+      Ebook.joins(:tags).where(tags: { id: text_tags.pluck(:id) }).distinct
+    elsif user_tags.exists?
+      Ebook.joins(:tags).where(tags: { id: user_tags.pluck(:id) }).distinct
+    else
+      Ebook.none
+    end
+  end
+
   private
 
   def set_default_status
